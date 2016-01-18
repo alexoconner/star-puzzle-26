@@ -1,0 +1,51 @@
+{
+  "name": "node-webapp-generator",
+  "version": "0.0.0",
+  "description": "Seed repository for front-end built with node scripting",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rm -rf ./dist/ && mkdir ./dist",
+    "watch:styles": "watch 'npm run build:styles' ./src/styles",
+    "build:styles": "lessc ./src/styles/styles.less ./dist/styles.css",
+    "make:styles": "lessc ./src/styles/styles.less | cleancss > ./dist/styles.css",
+    "watch:js": "watchify ./src/index.js -t babelify -o ./dist/index.js -v --debug",
+    "build:js": "browserify ./src/index.js -t babelify --debug > ./dist/index.js",
+    "make:js": "browserify ./src/index.js -t babelify | uglifyjs > ./dist/index.js",
+    "build:html": "html-minifier ./src/index.html --output ./dist/index.html",
+    "make:html": "html-minifier --collapse-whitespace ./src/index.html --output ./dist/index.html",
+    "watch": "parallelshell 'npm run watch:styles' 'npm run watch:js'",
+    "build": "npm run build:html && npm run build:js && npm run build:styles",
+    "make": "npm run build:js && npm run make:html && npm run make:styles"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexoconner/node-webapp-generator.git"
+  },
+  "keywords": [
+    "node",
+    "generator",
+    "webapp",
+    "npm",
+    "script"
+  ],
+  "author": "Alexander Skrabl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexoconner/node-webapp-generator/issues"
+  },
+  "homepage": "https://github.com/alexoconner/node-webapp-generator#readme",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "clean-css": "^3.4.3",
+    "html-minifier": "^0.7.2",
+    "less": "^2.5.1",
+    "lodash.clone": "^4.0.1",
+    "lodash.shuffle": "^4.0.0",
+    "parallelshell": "^2.0.0",
+    "uglify-js": "^2.4.24",
+    "watch": "^0.16.0",
+    "watchify": "^3.4.0"
+  }
+}

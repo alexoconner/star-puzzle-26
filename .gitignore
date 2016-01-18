@@ -1,0 +1,9 @@
+# logs
+*.log
+
+# editors
+.idea/
+
+# node and built
+node_modules/
+dist/
