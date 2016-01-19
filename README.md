@@ -1,7 +1,6 @@
-# Simple node webapp generator/seed
+# Star Puzzle 26
 
-This is a simple node seed for javascript based projects using es6 with babel.
-The script minifies your html, compiles and minifies less styling and turns es6 code into code all the current browsers can understand.
+..later
 
 ## Install
 * clone repository
