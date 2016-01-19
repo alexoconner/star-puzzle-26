@@ -66,16 +66,28 @@ class SolveStarPuzzle {
             return count === 26;
         });
 
-        return newLines.every( (val, key) => {
+        let isMatch = newLines.every( (val, key) => {
             return val;
         });
+
+        if (isMatch) {
+            console.log(randomPositions);
+        }
+        return false;
     }
 
 
     solve() {
-        //do {
-            console.log(this.bruteForce());
-        //} while (this.bruteForce() !== true)
+
+        var count = 0;
+        do {
+            count++;
+
+            if (count % 10000000 === 0) {
+                console.log(count)
+            }
+            var solvePuzzle = this.bruteForce();
+        } while (solvePuzzle === false)
     }
 }
 
