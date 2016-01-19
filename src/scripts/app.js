@@ -19,6 +19,12 @@ class SolveStarPuzzle {
      * Every number is only available one time as there are 12 fields.
      * However, every number applies to two rows.
      */
+
+    /**
+     * This function creates a row that euqals 26
+     * @param availableNumbers
+     * @returns {Array}
+     */
     createRow(availableNumbers) {
 
         let count = 0;
@@ -39,12 +45,18 @@ class SolveStarPuzzle {
             return count;
         }
 
-        while (calculateNumbers() !== 26) {
-        }
+        do {
+            var calcNums = calculateNumbers();
+        } while (calcNums !== 26)
 
         return four;
     }
 
+    /**
+     * This function is filling up all the places in the grid and checking if all of them equal 26.
+     * So far this method doesnt seem to be a good one as through the random approach it could run for hours.. or days until it finds a match.
+     * @returns {boolean}
+     */
     bruteForce() {
         let randomPositions = _shuffle(this.numbers);
         let lines = [
@@ -79,15 +91,19 @@ class SolveStarPuzzle {
 
     solve() {
 
-        var count = 0;
-        do {
-            count++;
+        // no luck with that version so far.. too many possibilities to find a match.. could take hours.. days
+        //var count = 0;
+        //do {
+        //    count++;
+        //
+        //    if (count % 10000000 === 0) {
+        //        console.log(count)
+        //    }
+        //    var solvePuzzle = this.bruteForce();
+        //} while (solvePuzzle === false)
 
-            if (count % 10000000 === 0) {
-                console.log(count)
-            }
-            var solvePuzzle = this.bruteForce();
-        } while (solvePuzzle === false)
+        var row = this.createRow(this.numbers);
+        console.log(row);
     }
 }
 
