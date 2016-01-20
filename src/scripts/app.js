@@ -72,17 +72,17 @@ class SolveStarPuzzle {
      * @param arr
      */
     registerNumber(arr) {
-        let numsRegistered = 0;
+        var couldRegister = true;
         arr.forEach( (val, key) => {
-            if (this.numbersUsed[val] < 2) {
+            //console.log(this.numbersUsed[arr[0]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[1]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[2]] + '<' + 2 + '&&' + this.numbersUsed[arr[3]] + '<' + 2);
+            if (this.numbersUsed[arr[0]] < 2 && this.numbersUsed[arr[1]] < 2 && this.numbersUsed[arr[2]] < 2 && this.numbersUsed[arr[3]] < 2) {
                 this.numbersUsed[val] = this.numbersUsed[val] + 1;
-                numsRegistered++;
             }
             else {
-                return false;
+                couldRegister = false;
             }
         });
-        return true;
+        return couldRegister;
     }
 
     /**
@@ -148,6 +148,7 @@ class SolveStarPuzzle {
         do {
             var row = this.createRow(this.numbers);
             if (this.registerNumber(row) === true) {
+                console.log(row);
                 this.foundRows.push(row);
             }
             var check = this.checkIfAllNumbersAreRegistered();
