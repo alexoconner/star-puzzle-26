@@ -12,6 +12,21 @@ class SolveStarPuzzle {
         this.numbers = [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
         ];
+        this.numbersUsed = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+            8: 0,
+            9: 0,
+            10: 0,
+            11: 0,
+            12: 0
+        };
+        this.foundRows = [];
     }
 
     /**
@@ -47,9 +62,37 @@ class SolveStarPuzzle {
 
         do {
             var calcNums = calculateNumbers();
-        } while (calcNums !== 26)
+        } while (calcNums !== 26);
 
         return four;
+    }
+
+    /**
+     * feed with array (row that euqals 26) and register that number in the numbersUsed object
+     * @param arr
+     */
+    registerNumber(arr) {
+        let numsRegistered = 0;
+        arr.forEach( (val, key) => {
+            if (this.numbersUsed[val] < 2) {
+                this.numbersUsed[val] = this.numbersUsed[val] + 1;
+                numsRegistered++;
+            }
+            else {
+                return false;
+            }
+        });
+        return true;
+    }
+
+    /**
+     * checks if all numbers in numberUsed object are two (since every number shares two rows, hence exists twice in the puzzle)
+     * @returns {boolean}
+     */
+    checkIfAllNumbersAreRegistered() {
+        return Object.keys(this.numbersUsed).every( (val, key) => {
+            return this.numbersUsed[val] === 2;
+        });
     }
 
     /**
@@ -102,10 +145,19 @@ class SolveStarPuzzle {
         //    var solvePuzzle = this.bruteForce();
         //} while (solvePuzzle === false)
 
-        var row = this.createRow(this.numbers);
-        console.log(row);
+        do {
+            var row = this.createRow(this.numbers);
+            if (this.registerNumber(row) === true) {
+                this.foundRows.push(row);
+            }
+            var check = this.checkIfAllNumbersAreRegistered();
+            console.log(check);
+        } while (check !== true);
     }
 }
 
 //export default SolveStarPuzzle
-new SolveStarPuzzle().solve();
+
+var starPuzzle = new SolveStarPuzzle();
+
+window.starPuzzle = starPuzzle;
