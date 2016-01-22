@@ -73,11 +73,24 @@ class SolveStarPuzzle {
      */
     registerNumber(arr) {
         var registered = true;
-        console.log(this.numbersUsed[arr[0]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[1]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[2]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[3]] + ' < ' + 2);
+        var checkForPairs = 0;
+        //console.log(this.numbersUsed[arr[0]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[1]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[2]] + ' < ' + 2 + ' && ' + this.numbersUsed[arr[3]] + ' < ' + 2);
 
         if (this.numbersUsed[arr[0]] < 2 && this.numbersUsed[arr[1]] < 2 && this.numbersUsed[arr[2]] < 2 && this.numbersUsed[arr[3]] < 2) {
             arr.forEach((val, key) => {
-                this.numbersUsed[val] = this.numbersUsed[val] + 1;
+                this.foundRows.every( (rowVal, rowKey) => {
+                    if (this.foundRows[rowKey].indexOf(val) > -1) {
+                        checkForPairs++;
+                        return true;
+                    }
+                    if (checkForPairs > 1) {
+                        registered = false;
+                        return false;
+                    }
+                    else {
+                        this.numbersUsed[val] = this.numbersUsed[val] + 1;
+                    }
+                });
             });
         }
         else {
@@ -150,9 +163,12 @@ class SolveStarPuzzle {
             var row = this.createRow(this.numbers);
             if (this.registerNumber(row) === true) {
                 this.foundRows.push(row);
+                this.foundRows.forEach( (val, key) => {
+                    console.log(val);
+                });
             }
             var check = this.checkIfAllNumbersAreRegistered();
-            console.log(check);
+            //console.log(check);
         } while (check !== true);
     }
 }
